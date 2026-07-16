@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Arena</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0f0f0f;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        /* Landing Page Styling */
+        #landing-page {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .go-btn {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .go-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+        /* Main Content Page Styling */
+        #main-page {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* YouTube Size Video Screen Container (16:9 Aspect Ratio) */
+        .video-screen-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000000;
+            border: 2px solid #333;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .ad-slot-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Bottom Ad Container */
+        .bottom-ad-container {
+            width: 100%;
+            max-width: 468px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+        }
+        /* Status Text under the player */
+        .status-text {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #aaaaaa;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: LANDING SCREEN -->
+    <div id="landing-page">
+        <button class="go-btn" onclick="startApp()">GO</button>
+    </div>
+
+    <!-- PAGE 2: MAIN SCREEN WITH YOUTUBE SIZE AD PLAYER -->
+    <div id="main-page">
+        <!-- YouTube Size Video Screen -->
+        <div class="video-screen-container">
+            <div class="ad-slot-wrapper" id="ad-player-screen">
+                <!-- 300x250 Ad Container -->
+                <div id="adsterra-main-player"></div>
+            </div>
+        </div>
+
+        <!-- Bottom 468x60 Banner Ad -->
+        <div class="bottom-ad-container" id="adsterra-bottom-banner"></div>
+
+        <div class="status-text">Streaming optimization active. Content refreshes for stability...</div>
+    </div>
+
+    <script>
+        function startApp() {
+            // ১. ল্যান্ডিং পেজ হাইড করে মেইন পেজ শো করা
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'flex';
+            
+            // ২. প্রথমবার অ্যাপ লোড হওয়ার সাথে সাথে অ্যাড জেনারেট করা
+            refreshAdStream();
+            
+            // ৩. প্রতি ৩০ সেকেন্ড পর পর দুটি অ্যাডই অটোমেটিক রিফ্রেশ হবে (নতুন ইমপ্রেশনের জন্য)
+            setInterval(refreshAdStream, 30000); 
+        }
+
+        function refreshAdStream() {
+            const playerContainer = document.getElementById('adsterra-main-player');
+            const bottomContainer = document.getElementById('adsterra-bottom-banner');
+
+            // --- ১. মেইন প্লেয়ার অ্যাড রিফ্রেশ (300x250) ---
+            if (playerContainer) {
+                playerContainer.innerHTML = ""; // আগের অ্যাড মুছে ফেলা
+                
+                // কনফিগারেশন স্ক্রিপ্ট তৈরি
+                let scriptConfig = document.createElement("script");
+                scriptConfig.type = "text/javascript";
+                scriptConfig.innerHTML = `
+                    atOptions = {
+                        'key' : '0cde4171f900d3dfac901dced582f0b5',
+                        'format' : 'iframe',
+                        'height' : 250,
+                        'width' : 300,
+                        'params' : {}
+                    };
+                `;
+                playerContainer.appendChild(scriptConfig);
+
+                // মেইন অ্যাড লোড করার স্ক্রিপ্ট
+                let scriptInvoke = document.createElement("script");
+                scriptInvoke.type = "text/javascript";
+                scriptInvoke.src = "https://www.highperformanceformat.com/0cde4171f900d3dfac901dced582f0b5/invoke.js";
+                playerContainer.appendChild(scriptInvoke);
+            }
+
+            // --- ২. নিচের ব্যানার অ্যাড রিফ্রেশ (468x60) ---
+            if (bottomContainer) {
+                bottomContainer.innerHTML = ""; // আগের অ্যাড মুছে ফেলা
+                
+                // কনফিগারেশন স্ক্রিপ্ট তৈরি
+                let scriptConfigBottom = document.createElement("script");
+                scriptConfigBottom.type = "text/javascript";
+                scriptConfigBottom.innerHTML = `
+                    atOptions = {
+                        'key' : '5c86a4e54aea03bcb8d4ee823c81e69a',
+                        'format' : 'iframe',
+                        'height' : 60,
+                        'width' : 468,
+                        'params' : {}
+                    };
+                `;
+                bottomContainer.appendChild(scriptConfigBottom);
+
+                // নিচের অ্যাড লোড করার স্ক্রিপ্ট
+                let scriptInvokeBottom = document.createElement("script");
+                scriptInvokeBottom.type = "text/javascript";
+                scriptInvokeBottom.src = "https://www.highperformanceformat.com/5c86a4e54aea03bcb8d4ee823c81e69a/invoke.js";
+                bottomContainer.appendChild(scriptInvokeBottom);
+            }
+
+            console.log("Both ads refreshed for new impressions successfully.");
+        }
+    </script>
+</body>
+</html>
