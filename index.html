@@ -3,75 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Arena - Pro</title>
+    <title>Stream Arena - Fix</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #0f0f0f; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #ffffff; overflow-x: hidden; }
-        
-        /* Landing Page */
-        #landing-page { text-align: center; }
-        .go-btn { background-color: #ff0000; color: white; border: none; padding: 20px 60px; font-size: 28px; font-weight: bold; border-radius: 50px; cursor: pointer; }
-
-        /* Main Content */
-        #main-page { display: none; width: 100%; max-width: 600px; padding: 15px; flex-direction: column; align-items: center; }
-        
-        /* Ad Containers */
-        .ad-container { margin: 10px 0; background-color: #1a1a1a; display: flex; justify-content: center; align-items: center; border-radius: 8px; border: 1px solid #333; overflow: hidden; }
-        
-        /* Sizes */
-        .slot-big { width: 300px; height: 250px; } /* Main Player Slot */
-        .slot-banner { width: 100%; max-width: 468px; height: 60px; } /* Banner Slots */
-        
-        .status-text { margin-top: 15px; font-size: 12px; color: #666; }
+        body { background: #000; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; }
+        .ad-container { margin: 10px; border: 1px solid #333; }
+        .go-btn { padding: 20px 50px; background: red; border: none; color: white; font-size: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div id="landing-page">
-        <button class="go-btn" onclick="startApp()">GO</button>
+    <div id="landing">
+        <button class="go-btn" onclick="start()">GO</button>
     </div>
 
-    <div id="main-page">
-        <!-- Slot 1: Main Player Big Ad -->
-        <div class="ad-container slot-big" id="ad-slot-1"></div>
-
-        <!-- Slot 2: Top Banner -->
-        <div class="ad-container slot-banner" id="ad-slot-2"></div>
-
-        <!-- Slot 3: Bottom Banner -->
-        <div class="ad-container slot-banner" id="ad-slot-3"></div>
-
-        <div class="status-text">System syncing ad-stream...</div>
+    <div id="main" style="display:none;">
+        <!-- Container 1 -->
+        <div id="container-1" class="ad-container"></div>
+        <!-- Container 2 -->
+        <div id="container-2" class="ad-container"></div>
+        <!-- Container 3 -->
+        <div id="container-3" class="ad-container"></div>
     </div>
 
     <script>
-        function startApp() {
-            document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('main-page').style.display = 'flex';
-            refreshAllAds();
-            setInterval(refreshAllAds, 30000); // ৩০ সেকেন্ডে ৩টি অড একসাথে রিফ্রেশ হবে
+        function start() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('main').style.display = 'flex';
+            loadAds();
         }
 
-        function refreshAllAds() {
-            loadAd('ad-slot-1', '0cde4171f900d3dfac901dced582f0b5', 250, 300);
-            loadAd('ad-slot-2', '5c86a4e54aea03bcb8d4ee823c81e69a', 60, 468);
-            loadAd('ad-slot-3', '5c86a4e54aea03bcb8d4ee823c81e69a', 60, 468); // ৩য় স্লট
-            console.log("3 Ads refreshed successfully!");
+        function loadAds() {
+            // Box 1
+            renderAd('container-1', '0cde4171f900d3dfac901dced582f0b5', 250, 300);
+            // Box 2
+            renderAd('container-2', 'c3b2b9ff0e0ccb8245a157019542f183', 50, 320);
+            // Box 3
+            renderAd('container-3', '5c86a4e54aea03bcb8d4ee823c81e69a', 60, 468);
         }
 
-        function loadAd(elementId, key, height, width) {
-            const container = document.getElementById(elementId);
-            container.innerHTML = ""; // আগের অ্যাড মুছে ফেলা
-
-            let scriptConfig = document.createElement("script");
-            scriptConfig.type = "text/javascript";
-            scriptConfig.innerHTML = `atOptions = { 'key' : '${key}', 'format' : 'iframe', 'height' : ${height}, 'width' : ${width}, 'params' : {} };`;
-            container.appendChild(scriptConfig);
-
-            let scriptInvoke = document.createElement("script");
-            scriptInvoke.type = "text/javascript";
-            scriptInvoke.src = `https://www.highperformanceformat.com/${key}/invoke.js`;
-            container.appendChild(scriptInvoke);
+        function renderAd(containerId, key, h, w) {
+            const container = document.getElementById(containerId);
+            // Iframe তৈরি করছি যাতে অ্যাডগুলো একে অপরের সাথে কনফ্লিক্ট না করে
+            const iframe = document.createElement('iframe');
+            iframe.width = w + 20;
+            iframe.height = h + 20;
+            iframe.frameBorder = "0";
+            iframe.scrolling = "no";
+            
+            // Iframe এর ভেতর HTML তৈরি করা
+            const html = `
+                <html>
+                <body style="margin:0; padding:0;">
+                    <script type="text/javascript">
+                        atOptions = { 'key' : '${key}', 'format' : 'iframe', 'height' : ${h}, 'width' : ${w}, 'params' : {} };
+                    <\/script>
+                    <script type="text/javascript" src="https://www.highperformanceformat.com/${key}/invoke.js"><\/script>
+                </body>
+                </html>
+            `;
+            
+            iframe.srcdoc = html;
+            container.appendChild(iframe);
         }
     </script>
 </body>
