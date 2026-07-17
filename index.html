@@ -3,68 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Arena - Fix</title>
+    <title>Ad Stream Pro</title>
     <style>
-        body { background: #000; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; }
-        .ad-container { margin: 10px; border: 1px solid #333; }
-        .go-btn { padding: 20px 50px; background: red; border: none; color: white; font-size: 20px; cursor: pointer; }
+        body { background-color: #0b111e; color: #fff; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; font-family: sans-serif; }
+        .ad-box { width: 320px; height: 320px; background: #141f32; border: 1px solid #1e2d4a; border-radius: 8px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .ad-content { width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; }
+        .progress-bar { width: 100%; height: 5px; background: #1e2d4a; position: absolute; bottom: 0; }
+        .progress-fill { height: 100%; background: #00b0ff; width: 0%; transition: width 0.3s linear; }
     </style>
 </head>
 <body>
 
-    <div id="landing">
-        <button class="go-btn" onclick="start()">GO</button>
-    </div>
-
-    <div id="main" style="display:none;">
-        <!-- Container 1 -->
-        <div id="container-1" class="ad-container"></div>
-        <!-- Container 2 -->
-        <div id="container-2" class="ad-container"></div>
-        <!-- Container 3 -->
-        <div id="container-3" class="ad-container"></div>
-    </div>
+    <!-- ৬টি বক্স -->
+    <div class="ad-box" id="box-1"></div>
+    <div class="ad-box" id="box-2"></div>
+    <div class="ad-box" id="box-3"></div>
+    <div class="ad-box" id="box-4"></div>
+    <div class="ad-box" id="box-5"></div>
+    <div class="ad-box" id="box-6"></div>
 
     <script>
-        function start() {
-            document.getElementById('landing').style.display = 'none';
-            document.getElementById('main').style.display = 'flex';
-            loadAds();
-        }
-
-        function loadAds() {
-            // Box 1
-            renderAd('container-1', '0cde4171f900d3dfac901dced582f0b5', 250, 300);
-            // Box 2
-            renderAd('container-2', 'c3b2b9ff0e0ccb8245a157019542f183', 50, 320);
-            // Box 3
-            renderAd('container-3', '5c86a4e54aea03bcb8d4ee823c81e69a', 60, 468);
-        }
-
-        function renderAd(containerId, key, h, w) {
+        // আপনার স্ক্রিপ্টগুলোর ফাংশন
+        function loadAd(containerId, type) {
             const container = document.getElementById(containerId);
-            // Iframe তৈরি করছি যাতে অ্যাডগুলো একে অপরের সাথে কনফ্লিক্ট না করে
-            const iframe = document.createElement('iframe');
-            iframe.width = w + 20;
-            iframe.height = h + 20;
-            iframe.frameBorder = "0";
-            iframe.scrolling = "no";
+            container.innerHTML = '<div class="ad-content" id="inner-' + containerId + '"></div><div class="progress-bar"><div class="progress-fill" id="fill-' + containerId + '"></div></div>';
             
-            // Iframe এর ভেতর HTML তৈরি করা
-            const html = `
-                <html>
-                <body style="margin:0; padding:0;">
-                    <script type="text/javascript">
-                        atOptions = { 'key' : '${key}', 'format' : 'iframe', 'height' : ${h}, 'width' : ${w}, 'params' : {} };
-                    <\/script>
-                    <script type="text/javascript" src="https://www.highperformanceformat.com/${key}/invoke.js"><\/script>
-                </body>
-                </html>
-            `;
-            
-            iframe.srcdoc = html;
-            container.appendChild(iframe);
+            const innerDiv = document.getElementById('inner-' + containerId);
+            const fill = document.getElementById('fill-' + containerId);
+
+            // অ্যাড লোড করার লজিক
+            if (type === 'banner') {
+                // ১ম স্ক্রিপ্ট
+                let s1 = document.createElement('script');
+                s1.src = "https://pl30405085.effectivecpmnetwork.com/0c11d435e5064692b9eaf585704e6833/invoke.js";
+                innerDiv.appendChild(s1);
+            } else if (type === 'link') {
+                // ২য় স্ক্রিপ্ট (Link)
+                innerDiv.innerHTML = '<a href="https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76" target="_blank">Click Here</a>';
+            } else if (type === 'js') {
+                // ৩য় স্ক্রিপ্ট
+                let s3 = document.createElement('script');
+                s3.src = "https://pl30405087.effectivecpmnetwork.com/09/18/67/0918678a3a63fe6aef44482bf6c88b76.js";
+                innerDiv.appendChild(s3);
+            }
+
+            // প্রোগ্রেস বার লুপ (৩০ সেকেন্ড)
+            let width = 0;
+            let interval = setInterval(() => {
+                width += 1;
+                fill.style.width = width + "%";
+                if (width >= 100) {
+                    clearInterval(interval);
+                    loadAd(containerId, type); // রিফ্রেশ
+                }
+            }, 300); // ১০০ = ১০ সেকেন্ড, ৩০০ = ৩০ সেকেন্ড
         }
+
+        // সব বক্স একসাথে শুরু করা
+        window.onload = function() {
+            loadAd('box-1', 'banner');
+            loadAd('box-2', 'link');
+            loadAd('box-3', 'js');
+            loadAd('box-4', 'banner');
+            loadAd('box-5', 'link');
+            loadAd('box-6', 'js');
+        };
     </script>
 </body>
 </html>
