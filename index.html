@@ -3,150 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Ad Player - Insert Ads Here</title>
+    <title>Premium Stream Network</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #0b111e; color: #fff; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; font-family: sans-serif; }
-        .video-box { width: 320px; height: 320px; background: #000; border: 2px solid #1e2d4a; border-radius: 10px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .header { padding: 8px 12px; font-size: 11px; color: #ff0000; font-weight: bold; display: flex; align-items: center; gap: 6px; background: #090d16; border-bottom: 1px solid #1e2d4a; }
+        body { background-color: #0b111e; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; font-family: sans-serif; }
+        
+        /* Pocket Option Style Head & Grid */
+        #header-title { font-size: 22px; font-weight: bold; color: #00b0ff; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        #main-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 500px; }
+        
+        /* Premium Video Box UI */
+        .video-box { width: 100%; max-width: 340px; height: 320px; background: #000; border: 2px solid #1e2d4a; border-radius: 10px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .header { padding: 8px 12px; font-size: 11px; color: #ff0000; font-weight: bold; display: flex; align-items: center; justify-content: space-between; background: #090d16; border-bottom: 1px solid #1e2d4a; }
+        .live-info { display: flex; align-items: center; gap: 6px; }
         .live-dot { width: 8px; height: 8px; background: red; border-radius: 50%; animation: blink 1s infinite; }
+        .timer-badge { color: #00b0ff; font-size: 11px; font-weight: bold; background: rgba(0, 176, 255, 0.1); padding: 1px 6px; border-radius: 4px; border: 1px solid rgba(0, 176, 255, 0.2); }
         @keyframes blink { 50% { opacity: 0; } }
-        .ad-slot { flex-grow: 1; position: relative; background: #000; }
-        .ad-slot iframe { width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; }
+        
+        /* Ad Safe Slot Area */
+        .ad-slot { flex-grow: 1; position: relative; background: #000; display: flex; justify-content: center; align-items: center; }
+        .ad-slot iframe { width: 100%; height: 100%; border: none; display: block; }
+        
+        /* Progress Line (Video Seek Style) */
         .seek-bar { width: 100%; height: 6px; background: #1e2d4a; }
         .seek-fill { height: 100%; background: linear-gradient(90deg, #00b0ff, #00e5ff); width: 0%; }
     </style>
 </head>
 <body>
 
-    <!-- ==================== বক্স ১ (১ম অ্যাড - ব্যানার কোড) ==================== -->
-    <div class="video-box">
-        <div class="header"><div class="live-dot"></div> LIVE STREAM 1</div>
-        <div class="ad-slot">
-            <iframe id="f-1" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
-                
-                <!-- [নিচের লাইনে আপনার ১ম অ্যাড বা ব্যানারের পুরো স্ক্রিপ্ট কোডটি বসান] -->
-               <script src="https://pl30405087.effectivecpmnetwork.com/09/18/67/0918678a3a63fe6aef44482bf6c88b76.js"></script></div>
-                <!-- [১ম অ্যাড কোড বসানো শেষ] -->
-
-            </body></html>'></iframe>
-        </div>
-        <div class="seek-bar"><div class="seek-fill" id="fill-1"></div></div>
-    </div>
-
-
-    <!-- ==================== বক্স ২ (২য় অ্যাড - ডিরেক্ট লিংক) ==================== -->
-    <div class="video-box">
-        <div class="header"><div class="live-dot"></div> LIVE STREAM 2</div>
-        <div class="ad-slot">
-            <!-- [নিচের src="..." এর ভেতর আপনার ডিরেক্ট লিংকটি বসিয়ে দিন] -->
-            <iframe id="f-2" src=https://www.effectivecpmnetwork.com/zyid781vyt?key=5e409e3b4d4ceecdee071611c3282eb1"></iframe>
-        </div>
-        <div class="seek-bar"><div class="seek-fill" id="fill-2"></div></div>
-    </div>
-
-
-    <!-- ==================== বক্স ৩ (৩য় অ্যাড - জাভাস্ক্রিপ্ট কোড) ==================== -->
-    <div class="video-box">
-        <div class="header"><div class="live-dot"></div> LIVE STREAM 3</div>
-        <div class="ad-slot">
-            <iframe id="f-3" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
-                
-                <!-- [নিচের লাইনে আপনার ৩য় অ্যাড এর জাভাস্ক্রিপ্ট কোডটি বসান] -->
-              <script src="https://pl30405087.effectivecpmnetwork.com/09/18/67/0918678a3a63fe6aef44482bf6c88b76.js"></script>
-                <!-- [৩য় অ্যাড কোড বসানো শেষ] -->
-
-            </body></html>'></iframe>
-        </div>
-        <div class="seek-bar"><div class="seek-fill" id="fill-3"></div></div>
-    </div>
-
-
-    <!-- ==================== বক্স ৪ (১ম অ্যাডের ডুপ্লিকেট) ==================== -->
-    <div class="video-box">
-        <div class="header"><div class="live-dot"></div> LIVE STREAM 4</div>
-        <div class="ad-slot">
-            <iframe id="f-4" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
-                
-                <!-- [এখানে আবার আপনার ১ম অ্যাড বা ব্যানারের কোডটি বসিয়ে দিন] -->
-                <script async="async" data-cfasync="false" src="https://pl30334029.effectivecpmnetwork.com/75b02880f6ff3ad95e0f1c3c406e1dee/invoke.js"></script>
-<div id="container-75b02880f6ff3ad95e0f1c3c406e1dee"></div>
-
-            </body></html>'></iframe>
-        </div>
-        <div class="seek-bar"><div class="seek-fill" id="fill-4"></div></div>
-    </div>
-
-
-    <!-- ==================== বক্স ৫ (২য় অ্যাডের ডুপ্লিকেট) ==================== -->
-    <div class="video-box">
-        <div class="header"><div class="live-dot"></div> LIVE STREAM 5</div>
-        <div class="ad-slot">
-            <!-- [নিচের src="..." এর ভেতর আবার আপনার ২য় অ্যাড বা ডিরেক্ট লিংকটি বসান] -->
-            <iframe id="f-5" src="https://www.effectivecpmnetwork.com/zyid781vyt?key=5e409e3b4d4ceecdee071611c3282eb1"></iframe>
-        </div>
-        <div class="seek-bar"><div class="seek-fill" id="fill-5"></div></div>
-    </div>
-
-
-    <!-- ==================== বক্স ৬ (৩য় অ্যাডের ডুপ্লিকেট) ==================== -->
-    <div class="video-box">
-        <div class="header"><div class="live-dot"></div> LIVE STREAM 6</div>
-        <div class="ad-slot">
-            <iframe id="f-6" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
-                
-                <!-- [এখানে আবার আপনার ৩য় অ্যাড এর জাভাস্ক্রিপ্ট কোডটি বসিয়ে দিন] -->
-                <script>
-  atOptions = {
-    'key' : '0a9cf201346f94593e49417f60222849',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script async="async" data-cfasync="false" src="https://pl30334029.effectivecpmnetwork.com/75b02880f6ff3ad95e0f1c3c406e1dee/invoke.js"></script>
-<script src="https://pl30334030.effectivecpmnetwork.com/7f/61/68/7f6168b6e2076dbb4e62f59585fa0f9c.js"></script>
-            </body></html>'></iframe>
-        </div>
-        <div class="seek-bar"><div class="seek-fill" id="fill-6"></div></div>
-    </div>
+    <h1 id="header-title">Live Stream Dashboard</h1>
+    
+    <!-- ১৬টি বক্সের কন্টেইনার (নিচে নিচে থাকবে) -->
+    <div id="main-container"></div>
 
     <script>
-        // রিফ্রেশ ও প্রোগ্রেস বার কন্ট্রোল করার স্ক্রিপ্ট (এখানে কোনো অ্যাড কোড বসাতে হবে না)
-        const totalFrames = 6;
-        const refreshTime = 30000; 
+        // আপনার দেওয়া ৮টি অ্যাড স্ক্রিপ্ট ও লিংক
+        const uniqueAds = [
+            { type: 'script', content: '<script async="async" data-cfasync="false" src="https://pl30334029.effectivecpmnetwork.com/75b02880f6ff3ad95e0f1c3c406e1dee/invoke.js"><\/script><div id="container-75b02880f6ff3ad95e0f1c3c406e1dee"></div>' },
+            { type: 'script', content: '<script src="https://pl30334030.effectivecpmnetwork.com/7f/61/68/7f6168b6e2076dbb4e62f59585fa0f9c.js"><\/script>' },
+            { type: 'script', content: '<script async="async" data-cfasync="false" src="https://pl30405085.effectivecpmnetwork.com/0c11d435e5064692b9eaf585704e6833/invoke.js"><\/script><div id="container-0c11d435e5064692b9eaf585704e6833"></div>' },
+            { type: 'link', content: 'https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76' },
+            { type: 'link', content: 'https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76' }, // আপনার দেওয়া ৫ম লিংকটি একই ছিল
+            { type: 'script', content: '<script src="https://pl30405087.effectivecpmnetwork.com/09/18/67/0918678a3a63fe6aef44482bf6c88b76.js"><\/script>' },
+            { type: 'script', content: '<script async="async" data-cfasync="false" src="https://pl30420075.effectivecpmnetwork.com/809fed6980e801ae8d3d241ce0e10237/invoke.js"><\/script><div id="container-809fed6980e801ae8d3d241ce0e10237"></div>' },
+            { type: 'script', content: '<script src="https://pl30420074.effectivecpmnetwork.com/d2/3a/6f/d23a6fd54c41311cdb58d5c7680e7a2a.js"><\/script>' }
+        ];
 
-        window.onload = () => {
-            for (let i = 1; i <= totalFrames; i++) {
-                initProgressBarAndRefresh(i);
-            }
-        };
+        // প্রতিটি অ্যাড ২ বার করে ব্যবহার করে ১৬টি বক্সের জন্য অ্যারে তৈরি
+        const totalAdsList = [...uniqueAds, ...uniqueAds]; 
+        const container = document.getElementById('main-container');
+        const refreshTime = 10000; // ১০ সেকেন্ড রিফ্রেশ রেট
 
-        function initProgressBarAndRefresh(id) {
+        // ডাইনামিকালি ১৬টি ভিডিও বক্স তৈরি করা
+        totalAdsList.forEach((ad, index) => {
+            const boxId = index + 1;
+            
+            const videoBox = document.createElement('div');
+            videoBox.className = 'video-box';
+            videoBox.innerHTML = `
+                <div class="header">
+                    <div class="live-info"><div class="live-dot"></div> LIVE CHANNEL ${boxId}</div>
+                    <div class="timer-badge" id="timer-${boxId}">10s</div>
+                </div>
+                <div class="ad-slot" id="slot-${boxId}"></div>
+                <div class="seek-bar"><div class="seek-fill" id="fill-${boxId}"></div></div>
+            `;
+            container.appendChild(videoBox);
+
+            // বক্সের লাইভ স্ট্রিমিং ও প্রোগ্রেস বার চালু করা
+            startVideoAdStream(boxId, ad);
+        });
+
+        function startVideoAdStream(id, adData) {
+            const slot = document.getElementById(`slot-${id}`);
             const fill = document.getElementById(`fill-${id}`);
-            const iframe = document.getElementById(`f-${id}`);
-            const originalSrcdoc = iframe.srcdoc;
-            const originalSrc = iframe.src;
+            const timer = document.getElementById(`timer-${id}`);
 
-            function startLoop() {
-                let width = 0;
+            function loadAdContent() {
+                slot.innerHTML = ""; // আগের ফ্রেম ডিলিট করা
+                const iframe = document.createElement('iframe');
+                iframe.frameBorder = "0";
+                iframe.scrolling = "no";
+                
+                if (adData.type === 'script') {
+                    // স্ক্রিপ্টকে আইসোলেটেড এনভায়রনমেন্টে রান করানো
+                    iframe.srcdoc = `<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;height:100vh;">${adData.content}</body></html>`;
+                } else if (adData.type === 'link') {
+                    // ডিরেক্ট লিংক লোড করানো
+                    iframe.src = adData.content;
+                }
+                
+                slot.appendChild(iframe);
+            }
+
+            // ১ম বার লোড
+            loadAdContent();
+
+            function runProgressBar() {
+                let currentStep = 0;
+                let totalSteps = 100; // ১০ সেকেন্ডের বাফারিং লুপ
+                let timeLeft = 10;
+                
+                fill.style.width = "0%";
+                timer.innerText = "10s";
+
                 let interval = setInterval(() => {
-                    width += (100 / (refreshTime / 100));
-                    fill.style.width = width + "%";
+                    currentStep++;
+                    fill.style.width = (currentStep / totalSteps * 100) + "%";
 
-                    if (width >= 100) {
+                    if (currentStep % 10 === 0) {
+                        timeLeft--;
+                        if (timeLeft >= 0) timer.innerText = timeLeft + "s";
+                    }
+
+                    if (currentStep >= totalSteps) {
                         clearInterval(interval);
-                        if (originalSrcdoc) {
-                            iframe.srcdoc = originalSrcdoc;
-                        } else {
-                            iframe.src = originalSrc;
-                        }
-                        setTimeout(startLoop, 500); 
+                        loadAdContent(); // ১০ সেকেন্ড শেষ, নতুন ইমপ্রেশনের জন্য কন্টেন্ট রিলোড
+                        setTimeout(runProgressBar, 200); // লুপ আবার চালু
                     }
                 }, 100);
             }
-            startLoop();
+
+            runProgressBar();
         }
     </script>
 </body>
