@@ -3,87 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Ad Player - Fixed</title>
+    <title>Stream Ad Player - Insert Ads Here</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: #0b111e; color: #fff; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; font-family: sans-serif; }
-        
-        /* Premium Video Box UI (Pocket Option Theme) */
         .video-box { width: 320px; height: 320px; background: #000; border: 2px solid #1e2d4a; border-radius: 10px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        
         .header { padding: 8px 12px; font-size: 11px; color: #ff0000; font-weight: bold; display: flex; align-items: center; gap: 6px; background: #090d16; border-bottom: 1px solid #1e2d4a; }
         .live-dot { width: 8px; height: 8px; background: red; border-radius: 50%; animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0; } }
-        
-        /* Absolute Safe Frame Area */
         .ad-slot { flex-grow: 1; position: relative; background: #000; }
         .ad-slot iframe { width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; }
-        
-        /* Seek Bar (Video Progress Line) */
         .seek-bar { width: 100%; height: 6px; background: #1e2d4a; }
         .seek-fill { height: 100%; background: linear-gradient(90deg, #00b0ff, #00e5ff); width: 0%; }
     </style>
 </head>
 <body>
 
-    <!-- বক্স ১: ১ম অ্যাড (Banner) -->
+    <!-- ==================== বক্স ১ (১ম অ্যাড - ব্যানার কোড) ==================== -->
     <div class="video-box">
         <div class="header"><div class="live-dot"></div> LIVE STREAM 1</div>
         <div class="ad-slot">
-            <iframe id="f-1" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;"><script async="async" data-cfasync="false" src="https://pl30405085.effectivecpmnetwork.com/0c11d435e5064692b9eaf585704e6833/invoke.js"><\/script><div id="container-0c11d435e5064692b9eaf585704e6833"></div></body></html>'></iframe>
+            <iframe id="f-1" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
+                
+                <!-- [নিচের লাইনে আপনার ১ম অ্যাড বা ব্যানারের পুরো স্ক্রিপ্ট কোডটি বসান] -->
+               <script src="https://pl30334028.effectivecpmnetwork.com/f5/a4/85/f5a485572776499d73b808235a9a59a1.js"></script><div id="container-0c11d435e5064692b9eaf585704e6833"></div>
+                <!-- [১ম অ্যাড কোড বসানো শেষ] -->
+
+            </body></html>'></iframe>
         </div>
         <div class="seek-bar"><div class="seek-fill" id="fill-1"></div></div>
     </div>
 
-    <!-- বক্স ২: ২য় অ্যাড (Direct Link) -->
+
+    <!-- ==================== বক্স ২ (২য় অ্যাড - ডিরেক্ট লিংক) ==================== -->
     <div class="video-box">
         <div class="header"><div class="live-dot"></div> LIVE STREAM 2</div>
         <div class="ad-slot">
-            <iframe id="f-2" src="https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76"></iframe>
+            <!-- [নিচের src="..." এর ভেতর আপনার ডিরেক্ট লিংকটি বসিয়ে দিন] -->
+            <iframe id="f-2" src=https://www.effectivecpmnetwork.com/zyid781vyt?key=5e409e3b4d4ceecdee071611c3282eb1"></iframe>
         </div>
         <div class="seek-bar"><div class="seek-fill" id="fill-2"></div></div>
     </div>
 
-    <!-- বক্স ৩: ৩য় অ্যাড (JS Script) -->
+
+    <!-- ==================== বক্স ৩ (৩য় অ্যাড - জাভাস্ক্রিপ্ট কোড) ==================== -->
     <div class="video-box">
         <div class="header"><div class="live-dot"></div> LIVE STREAM 3</div>
         <div class="ad-slot">
-            <iframe id="f-3" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;"><script src="https://pl30405087.effectivecpmnetwork.com/09/18/67/0918678a3a63fe6aef44482bf6c88b76.js"><\/script></body></html>'></iframe>
+            <iframe id="f-3" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
+                
+                <!-- [নিচের লাইনে আপনার ৩য় অ্যাড এর জাভাস্ক্রিপ্ট কোডটি বসান] -->
+               <script src="https://pl30334030.effectivecpmnetwork.com/7f/61/68/7f6168b6e2076dbb4e62f59585fa0f9c.js"></script>
+                <!-- [৩য় অ্যাড কোড বসানো শেষ] -->
+
+            </body></html>'></iframe>
         </div>
         <div class="seek-bar"><div class="seek-fill" id="fill-3"></div></div>
     </div>
 
-    <!-- বক্স ৪: ১ম অ্যাড পুনরাবৃত্তি (Isolation Mode) -->
+
+    <!-- ==================== বক্স ৪ (১ম অ্যাডের ডুপ্লিকেট) ==================== -->
     <div class="video-box">
         <div class="header"><div class="live-dot"></div> LIVE STREAM 4</div>
         <div class="ad-slot">
-            <iframe id="f-4" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;"><script async="async" data-cfasync="false" src="https://pl30405085.effectivecpmnetwork.com/0c11d435e5064692b9eaf585704e6833/invoke.js"><\/script><div id="container-0c11d435e5064692b9eaf585704e6833"></div></body></html>'></iframe>
+            <iframe id="f-4" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
+                
+                <!-- [এখানে আবার আপনার ১ম অ্যাড বা ব্যানারের কোডটি বসিয়ে দিন] -->
+                <script async="async" data-cfasync="false" src="https://pl30334029.effectivecpmnetwork.com/75b02880f6ff3ad95e0f1c3c406e1dee/invoke.js"></script>
+<div id="container-75b02880f6ff3ad95e0f1c3c406e1dee"></div>
+
+            </body></html>'></iframe>
         </div>
         <div class="seek-bar"><div class="seek-fill" id="fill-4"></div></div>
     </div>
 
-    <!-- বক্স ৫: ২য় অ্যাড পুনরাবৃত্তি -->
+
+    <!-- ==================== বক্স ৫ (২য় অ্যাডের ডুপ্লিকেট) ==================== -->
     <div class="video-box">
         <div class="header"><div class="live-dot"></div> LIVE STREAM 5</div>
         <div class="ad-slot">
-            <iframe id="f-5" src="https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76"></iframe>
+            <!-- [নিচের src="..." এর ভেতর আবার আপনার ২য় অ্যাড বা ডিরেক্ট লিংকটি বসান] -->
+            <iframe id="f-5" src="https://www.effectivecpmnetwork.com/zyid781vyt?key=5e409e3b4d4ceecdee071611c3282eb1"></iframe>
         </div>
         <div class="seek-bar"><div class="seek-fill" id="fill-5"></div></div>
     </div>
 
-    <!-- বক্স ৬: ৩য় অ্যাড পুনরাবৃত্তি -->
+
+    <!-- ==================== বক্স ৬ (৩য় অ্যাডের ডুপ্লিকেট) ==================== -->
     <div class="video-box">
         <div class="header"><div class="live-dot"></div> LIVE STREAM 6</div>
         <div class="ad-slot">
-            <iframe id="f-6" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;"><script src="https://pl30405087.effectivecpmnetwork.com/09/18/67/0918678a3a63fe6aef44482bf6c88b76.js"><\/script></body></html>'></iframe>
+            <iframe id="f-6" srcdoc='<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;">
+                
+                <!-- [এখানে আবার আপনার ৩য় অ্যাড এর জাভাস্ক্রিপ্ট কোডটি বসিয়ে দিন] -->
+                <script>
+  atOptions = {
+    'key' : '0a9cf201346f94593e49417f60222849',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/0a9cf201346f94593e49417f60222849/invoke.js"></script>
+
+            </body></html>'></iframe>
         </div>
         <div class="seek-bar"><div class="seek-fill" id="fill-6"></div></div>
     </div>
 
     <script>
-        // প্রতিটা বক্সের জন্য ৩০ সেকেন্ডের আলাদা এবং স্বাধীন রিফ্রেশ সিস্টেম (সেফ মোড)
+        // রিফ্রেশ ও প্রোগ্রেস বার কন্ট্রোল করার স্ক্রিপ্ট (এখানে কোনো অ্যাড কোড বসাতে হবে না)
         const totalFrames = 6;
-        const refreshTime = 30000; // ৩০ সেকেন্ড (অ্যাড নেটওয়ার্ক সেফটি পলিসি অনুযায়ী ৩০ সেকেন্ড বেস্ট)
+        const refreshTime = 30000; 
 
         window.onload = () => {
             for (let i = 1; i <= totalFrames; i++) {
@@ -94,34 +126,26 @@
         function initProgressBarAndRefresh(id) {
             const fill = document.getElementById(`fill-${id}`);
             const iframe = document.getElementById(`f-${id}`);
-            
-            // রিফ্রেশের সময় আইফ্রেমের অরিজিনাল কন্টেন্ট ব্যাকআপ রাখা
             const originalSrcdoc = iframe.srcdoc;
             const originalSrc = iframe.src;
 
             function startLoop() {
                 let width = 0;
-                // ১০০ms পর পর ভিডিওর মতো প্রোগ্রেস বার স্মুথলি বাড়বে
                 let interval = setInterval(() => {
                     width += (100 / (refreshTime / 100));
                     fill.style.width = width + "%";
 
                     if (width >= 100) {
                         clearInterval(interval);
-                        
-                        // আইফ্রেম রিলোড করার সবচেয়ে নিরাপদ মেথড (যাতে ব্রাউজার ক্যাশ ও কনফ্লিক্ট দূর হয়)
                         if (originalSrcdoc) {
                             iframe.srcdoc = originalSrcdoc;
                         } else {
                             iframe.src = originalSrc;
                         }
-
-                        // লুপ আবার চালু করা
                         setTimeout(startLoop, 500); 
                     }
                 }, 100);
             }
-
             startLoop();
         }
     </script>
