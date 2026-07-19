@@ -3,129 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Stream Network</title>
+    <title>Premium Stream Dashboard</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #0b111e; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; font-family: sans-serif; }
+        body { background-color: #0b111e; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         
-        /* Pocket Option Style Head & Grid */
-        #header-title { font-size: 22px; font-weight: bold; color: #00b0ff; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        #main-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 500px; }
+        /* Premium Player UI */
+        .player-container { width: 90%; max-width: 600px; background: #090d16; border: 2px solid #1e2d4a; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.7); text-align: center; cursor: pointer; }
+        .video-screen { width: 100%; height: 300px; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
         
-        /* Premium Video Box UI */
-        .video-box { width: 100%; max-width: 340px; height: 320px; background: #000; border: 2px solid #1e2d4a; border-radius: 10px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .header { padding: 8px 12px; font-size: 11px; color: #ff0000; font-weight: bold; display: flex; align-items: center; justify-content: space-between; background: #090d16; border-bottom: 1px solid #1e2d4a; }
-        .live-info { display: flex; align-items: center; gap: 6px; }
-        .live-dot { width: 8px; height: 8px; background: red; border-radius: 50%; animation: blink 1s infinite; }
-        .timer-badge { color: #00b0ff; font-size: 11px; font-weight: bold; background: rgba(0, 176, 255, 0.1); padding: 1px 6px; border-radius: 4px; border: 1px solid rgba(0, 176, 255, 0.2); }
+        /* Play Button Overlay */
+        .play-btn { width: 70px; height: 70px; background: #00b0ff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 20px rgba(0, 176, 255, 0.5); transition: transform 0.2s; }
+        .play-btn::after { content: ''; display: block; border-style: solid; border-width: 15px 0 15px 25px; border-color: transparent transparent transparent #fff; margin-left: 5px; }
+        .player-container:hover .play-btn { transform: scale(1.1); }
+        
+        .status-bar { padding: 12px; font-size: 14px; color: #00b0ff; font-weight: bold; background: #141f32; border-top: 1px solid #1e2d4a; display: flex; justify-content: space-between; }
+        .live-dot { width: 10px; height: 10px; background: #ff0000; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0; } }
-        
-        /* Ad Safe Slot Area */
-        .ad-slot { flex-grow: 1; position: relative; background: #000; display: flex; justify-content: center; align-items: center; }
-        .ad-slot iframe { width: 100%; height: 100%; border: none; display: block; }
-        
-        /* Progress Line (Video Seek Style) */
-        .seek-bar { width: 100%; height: 6px; background: #1e2d4a; }
-        .seek-fill { height: 100%; background: linear-gradient(90deg, #00b0ff, #00e5ff); width: 0%; }
     </style>
 </head>
 <body>
 
-    <h1 id="header-title">Live Stream Dashboard</h1>
-    
-    <!-- ১৬টি বক্সের কন্টেইনার (নিচে নিচে থাকবে) -->
-    <div id="main-container"></div>
+    <!-- প্রিমিয়াম ফেক প্লেয়ার ইন্টারফেস -->
+    <div class="player-container" id="trigger-area">
+        <div class="video-screen">
+            <div class="play-btn"></div>
+            <p style="margin-top: 15px; color: #a0aec0; font-size: 14px;">Click to Connect Live Stream</p>
+        </div>
+        <div class="status-bar">
+            <span><span class="live-dot"></span> LIVE SERVER 1</span>
+            <span style="color: #ff0000;">HIGH SPEED</span>
+        </div>
+    </div>
 
     <script>
-        // আপনার দেওয়া ৮টি অ্যাড স্ক্রিপ্ট ও লিংক
-        const uniqueAds = [
-            { type: 'script', content: '<script async="async" data-cfasync="false" src="https://pl30334029.effectivecpmnetwork.com/75b02880f6ff3ad95e0f1c3c406e1dee/invoke.js"><\/script><div id="container-75b02880f6ff3ad95e0f1c3c406e1dee"></div>' },
-            { type: 'script', content: '<script src="https://pl30334030.effectivecpmnetwork.com/7f/61/68/7f6168b6e2076dbb4e62f59585fa0f9c.js"><\/script>' },
-            { type: 'script', content: '<script async="async" data-cfasync="false" src="https://pl30405085.effectivecpmnetwork.com/0c11d435e5064692b9eaf585704e6833/invoke.js"><\/script><div id="container-0c11d435e5064692b9eaf585704e6833"></div>' },
-            { type: 'link', content: 'https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76' },
-            { type: 'link', content: 'https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76' }, // আপনার দেওয়া ৫ম লিংকটি একই ছিল
-            { type: 'script', content: '<script src="https://pl30405087.effectivecpmnetwork.com/09/18/67/0918678a3a63fe6aef44482bf6c88b76.js"><\/script>' },
-            { type: 'script', content: '<script async="async" data-cfasync="false" src="https://pl30420075.effectivecpmnetwork.com/809fed6980e801ae8d3d241ce0e10237/invoke.js"><\/script><div id="container-809fed6980e801ae8d3d241ce0e10237"></div>' },
-            { type: 'script', content: '<script src="https://pl30420074.effectivecpmnetwork.com/d2/3a/6f/d23a6fd54c41311cdb58d5c7680e7a2a.js"><\/script>' }
-        ];
+        // আপনার Adsterra ডাইরেক্ট লিংকটি এখানে দেওয়া আছে
+        const directLink = "https://www.effectivecpmnetwork.com/jyuwyn3e?key=25a1cfb97914460efd5c182e7e7b3a76";
 
-        // প্রতিটি অ্যাড ২ বার করে ব্যবহার করে ১৬টি বক্সের জন্য অ্যারে তৈরি
-        const totalAdsList = [...uniqueAds, ...uniqueAds]; 
-        const container = document.getElementById('main-container');
-        const refreshTime = 10000; // ১০ সেকেন্ড রিফ্রেশ রেট
+        const triggerArea = document.getElementById('trigger-area');
 
-        // ডাইনামিকালি ১৬টি ভিডিও বক্স তৈরি করা
-        totalAdsList.forEach((ad, index) => {
-            const boxId = index + 1;
-            
-            const videoBox = document.createElement('div');
-            videoBox.className = 'video-box';
-            videoBox.innerHTML = `
-                <div class="header">
-                    <div class="live-info"><div class="live-dot"></div> LIVE CHANNEL ${boxId}</div>
-                    <div class="timer-badge" id="timer-${boxId}">10s</div>
-                </div>
-                <div class="ad-slot" id="slot-${boxId}"></div>
-                <div class="seek-bar"><div class="seek-fill" id="fill-${boxId}"></div></div>
-            `;
-            container.appendChild(videoBox);
-
-            // বক্সের লাইভ স্ট্রিমিং ও প্রোগ্রেস বার চালু করা
-            startVideoAdStream(boxId, ad);
+        // ইউজারের ক্লিকের সাথে সাথে ব্যাকগ্রাউন্ডে অ্যাড ওপেন হবে
+        triggerArea.addEventListener('click', () => {
+            // নতুন ট্যাবে ডাইরেক্ট লিংক ওপেন হবে (যা Adsterra এর আসল ইউজার অ্যাকশন মনে করবে)
+            window.open(directLink, '_blank');
         });
-
-        function startVideoAdStream(id, adData) {
-            const slot = document.getElementById(`slot-${id}`);
-            const fill = document.getElementById(`fill-${id}`);
-            const timer = document.getElementById(`timer-${id}`);
-
-            function loadAdContent() {
-                slot.innerHTML = ""; // আগের ফ্রেম ডিলিট করা
-                const iframe = document.createElement('iframe');
-                iframe.frameBorder = "0";
-                iframe.scrolling = "no";
-                
-                if (adData.type === 'script') {
-                    // স্ক্রিপ্টকে আইসোলেটেড এনভায়রনমেন্টে রান করানো
-                    iframe.srcdoc = `<html><body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#000;height:100vh;">${adData.content}</body></html>`;
-                } else if (adData.type === 'link') {
-                    // ডিরেক্ট লিংক লোড করানো
-                    iframe.src = adData.content;
-                }
-                
-                slot.appendChild(iframe);
-            }
-
-            // ১ম বার লোড
-            loadAdContent();
-
-            function runProgressBar() {
-                let currentStep = 0;
-                let totalSteps = 100; // ১০ সেকেন্ডের বাফারিং লুপ
-                let timeLeft = 10;
-                
-                fill.style.width = "0%";
-                timer.innerText = "10s";
-
-                let interval = setInterval(() => {
-                    currentStep++;
-                    fill.style.width = (currentStep / totalSteps * 100) + "%";
-
-                    if (currentStep % 10 === 0) {
-                        timeLeft--;
-                        if (timeLeft >= 0) timer.innerText = timeLeft + "s";
-                    }
-
-                    if (currentStep >= totalSteps) {
-                        clearInterval(interval);
-                        loadAdContent(); // ১০ সেকেন্ড শেষ, নতুন ইমপ্রেশনের জন্য কন্টেন্ট রিলোড
-                        setTimeout(runProgressBar, 200); // লুপ আবার চালু
-                    }
-                }, 100);
-            }
-
-            runProgressBar();
-        }
     </script>
 </body>
 </html>
